@@ -1,50 +1,95 @@
-# Welcome to your Expo app 👋
+# 🍺 Beer Assignment App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is a **React Native Expo** project developed as an assignment app.  
+It demonstrates **authentication, beer listing with pagination, and beer details**.  
+The app is built with **TypeScript**, reusable components, and uses external APIs for data handling.
 
-## Get started
+---
 
-1. Install dependencies
+## 📌 Project Details
 
+- **Framework:** [React Native](https://reactnative.dev/) with [Expo](https://expo.dev/)
+- **Language:** TypeScript
+- **Navigation:** [React Navigation](https://reactnavigation.org/) + Expo Router
+- **Networking:** [Axios](https://axios-http.com/)
+- **UI & Theming:** Custom `Theme` file, `SafeAreaView`, responsive font sizes (`react-native-responsive-fontsize`)
+- **Toast Notifications:** [expo-toast](https://docs.expo.dev/versions/latest/sdk/toast/) (Expo-compatible)
+- **API Handling:** Service layer using Axios
+- **State Management:** React Hooks (`useState`, `useEffect`)
+- **Icons:** [@expo/vector-icons](https://docs.expo.dev/guides/icons/)
+
+---
+
+## 🎨 Figma Link
+👉 [View Figma Design](https://www.figma.com/design/zEMHmicXPCePjDwdDdDqIx/React-Native---Assignment?node-id=0-1&t=ihP2M5RXlKGyp7pD-1)
+
+---
+
+## 🔗 APIs Used
+
+We used two external APIs:
+
+### 1. **Platzi Fake Store API (Auth)**
+- **Login API** → `POST https://api.escuelajs.co/api/v1/auth/login`
+- **Register API** → `POST https://api.escuelajs.co/api/v1/users`
+
+### 2. **Punk API (Beer Data)**
+- **Beer List with Pagination** → `GET https://punkapi.online/v3/beers?page=${pageNumber}`
+- **Beer Details** → `GET https://punkapi.online/v3/beers/${productId}`
+
+---
+
+## 🚀 Features
+
+- ✅ **User Authentication** (Login & Registration using Platzi Fake Store API)  
+- ✅ **Beer Listing** with infinite scroll pagination  
+- ✅ **Beer Details** with product info  
+- ✅ **Reusable Components** (Button, Loader, BeerCard, CommonHeader)  
+- ✅ **Custom Toast Notifications** for error/success messages  
+- ✅ **Responsive UI** across devices  
+- ✅ **API Integration** with Axios  
+
+---
+
+## 🛠️ Setup Instructions
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/ShRavan-Variya/beer-assignment-app.git
+   cd beer-assignment-app
+   ```
+
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-2. Start the app
-
+3. Start the Expo project:
    ```bash
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+4. Open the project in Expo Go app (iOS/Android) by scanning the QR code.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 🎯 Design Assumptions
 
-## Get a fresh project
+- **Clean & Minimal UI:** Kept layout simple and easy to navigate.
+- **Reusable Components:** Created common components for consistency (Button, Loader, BeerCard).
+- **Toast Handling:** Used expo-toast for showing feedback to users.
+- **Network Handling:** Used @react-native-community/netinfo to detect internet connectivity.
+- **Pagination:** Implemented lazy loading for beer list using FlatList.
 
-When you're ready, run:
+---
 
-```bash
-npm run reset-project
-```
+## 👨‍💻 Developer
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- **Name:** Shravan Variya
+- **Role:** React Native Developer
 
-## Learn more
+---
 
-To learn more about developing your project with Expo, look at the following resources:
+## 📜 License
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+This project is for demo/assignment purposes only. APIs are publicly available and used for learning.
