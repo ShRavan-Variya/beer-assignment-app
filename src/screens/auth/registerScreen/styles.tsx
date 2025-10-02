@@ -9,25 +9,25 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Theme.colors.backgroundColor,
-    paddingHorizontal: Theme.spacing.xlarge,
-    paddingTop: Theme.spacing.xlarge * 2.8,
+    paddingHorizontal: Theme.responsiveSize.size24,
+    paddingTop: Theme.responsiveSize.size24 * 2.8,
   },
   formContainer: {
     flex: 1,
-    marginTop: Theme.spacing.medium,
+    marginTop: Theme.responsiveSize.size10,
   },
   signUpContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: Theme.spacing.medium,
-    paddingBottom: Theme.spacing.size50,
+    marginTop: Theme.responsiveSize.size10,
+    paddingBottom: Theme.responsiveSize.size50,
   },
   signUpText: {
-    fontSize: Theme.fontSizes.medium,
+    fontSize: Theme.responsiveSize.size11,
     color: Theme.colors.textColor4,
   },
   signUpLink: {
-    fontSize: Theme.fontSizes.medium,
+    fontSize: Theme.responsiveSize.size11,
     color: Theme.colors.textColor3,
     fontWeight: '600',
   },

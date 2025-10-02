@@ -1,15 +1,18 @@
+import { isNetworkAvailable } from "@/src/api/manager";
 import { Button } from "@/src/components/Button";
 import { EntryHeader } from "@/src/components/EntryHeader";
 import { InputText } from "@/src/components/InputText";
+import { loginUser } from "@/src/services/authServices";
 import Theme from "@/src/theme/Theme";
+import { useToast } from "expo-toast";
 import React, { useState } from "react";
 import { Alert, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 
 const LoginScreen: React.FC = (props: any) => {
-
-  const [email, setEmail] = useState("test@gmail.com");
-  const [password, setPassword] = useState("123456");
+  const toast = useToast();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({
     email: "",
@@ -32,23 +35,45 @@ const LoginScreen: React.FC = (props: any) => {
       newErrors.password = "Password is required";
     } else if (password.length < 6) {
       newErrors.password = "Password must be at least 6 characters";
+    } else if (!/^[A-Za-z0-9]+$/.test(password)) {
+      newErrors.password = "Password must contain only letters and numbers";
     }
 
     setErrors(newErrors);
     return !newErrors.email && !newErrors.password;
   };
-
-  const handleLogin = () => {
-    if (validateForm()) {
-      setLoading(true);
-      // Simulate API call
-      setTimeout(() => {
-        setLoading(false);
-        // Navigate to Dashboard on successful login
-        props.navigation.replace("Dashboard");
-      }, 1500);
+  
+  const doLoginUser = async () => {
+    const isConnected = await isNetworkAvailable();
+    if (!isConnected) {
+      toast.show("No internet connection available!");
+      return;
     }
-  };
+
+    setLoading(true);
+    try {
+      const data = {
+        "email": email,
+        "password": password,
+      }
+      const response: any = await loginUser(data);
+      setLoading(false);
+      console.log('response :: ', JSON.stringify(response));
+      
+      if (response && response.data) {
+        toast.show("Login Successful.");
+        props.navigation.replace("Dashboard");
+      } else {
+        const message = "Login failed. Please try again.";
+        toast.show(message);
+      }
+    } catch (error: any) {
+      console.log("error: ", JSON.stringify(error));
+      const message = "Login failed. Please try again.";
+      toast.show(message);
+      setLoading(false);
+    }
+  }
 
   const handleForgotPassword = () => {
     Alert.alert(
@@ -70,10 +95,10 @@ const LoginScreen: React.FC = (props: any) => {
         <Image
           source={Theme.images.logo}
           style={{
-            width: Theme.heights.semiMedium,
-            height: Theme.heights.medium,
+            width: Theme.responsiveSize.size100,
+            height: Theme.responsiveSize.size75,
             alignSelf: "center",
-            marginBottom: Theme.spacing.medium
+            marginBottom: Theme.responsiveSize.size10
           }}
         />
         <EntryHeader title="Welcome Back!" subtitle="Login to continue" />
@@ -86,7 +111,7 @@ const LoginScreen: React.FC = (props: any) => {
             onChangeText={setEmail}
             keyboardType="email-address"
             error={errors.email}
-            mainViewStyle={{ marginBottom: Theme.spacing.medium }}
+            mainViewStyle={{ marginBottom: Theme.responsiveSize.size10 }}
           />
 
           <InputText
@@ -107,10 +132,15 @@ const LoginScreen: React.FC = (props: any) => {
 
           <Button
             title="Login"
-            onPress={handleLogin}
+            onPress={() => {
+              if (validateForm()) {
+                doLoginUser();
+              }
+            }}
             loading={loading}
             disabled={loading}
-            viewMainStyle={{ marginTop: Theme.spacing.xlarge * 3 }}
+            variant="primary"
+            viewMainStyle={{ marginTop: Theme.responsiveSize.size24 * 3 }}
           />
 
           <View style={styles.signUpContainer}>

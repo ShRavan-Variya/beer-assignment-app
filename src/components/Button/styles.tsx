@@ -4,11 +4,11 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   button: {
-    paddingVertical: Theme.spacing.medium,
-    borderRadius: Theme.borderRadius.medium,
+    paddingVertical: Theme.responsiveSize.size10,
+    borderRadius: Theme.responsiveSize.size8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: Theme.spacing.small,
+    marginVertical: Theme.responsiveSize.size2,
   },
   primary: {
     backgroundColor: Theme.colors.appColor,
@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
     borderColor: Theme.colors.textColor2,
   },
   buttonText: {
-    fontSize: Theme.fontSizes.medium,
+    fontSize: Theme.responsiveSize.size14,
+    paddingVertical: Theme.responsiveSize.size2,
     fontWeight: '600',
   },
   primaryText: {
@@ -35,6 +36,15 @@ const styles = StyleSheet.create({
   },
   secondaryText: {
     color: Theme.colors.appColor,
+  },
+  danger: {
+    backgroundColor: 'red',
+  },
+  dangerDisabled: {
+    backgroundColor: '#ff9999',
+  },
+  dangerText: {
+    color: Theme.colors.backgroundColor,
   },
 });
 

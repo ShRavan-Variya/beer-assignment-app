@@ -1,13 +1,16 @@
+import { isNetworkAvailable } from "@/src/api/manager";
 import { Button } from "@/src/components/Button";
 import { EntryHeader } from "@/src/components/EntryHeader";
 import { InputText } from "@/src/components/InputText";
+import { registerUser } from "@/src/services/authServices";
 import Theme from "@/src/theme/Theme";
+import { useToast } from "expo-toast";
 import React, { useState } from "react";
 import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import styles from "./styles";
 
 const RegisterScreen: React.FC = (props: any) => {
-
+  const toast = useToast();
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -42,6 +45,8 @@ const RegisterScreen: React.FC = (props: any) => {
       newErrors.password = "Password is required";
     } else if (password.length < 6) {
       newErrors.password = "Password must be at least 6 characters";
+    } else if (!/^[A-Za-z0-9]+$/.test(password)) {
+      newErrors.password = "Password must contain only letters and numbers";
     }
 
     if (!passwordConfirm) {
@@ -54,17 +59,36 @@ const RegisterScreen: React.FC = (props: any) => {
     return !newErrors.email && !newErrors.password;
   };
 
-  const handleSignup = () => {
-    if (validateForm()) {
-      setLoading(true);
-      // Simulate API call
-      setTimeout(() => {
-        setLoading(false);
-        // Navigate to Dashboard on successful login
-        props.navigation.replace("Dashboard");
-      }, 1500);
+  const doRegisterUser = async () => {
+    const isConnected = await isNetworkAvailable();
+    if (!isConnected) {
+      toast.show("No internet connection available!");
+      return;
     }
-  };
+
+    setLoading(true);
+    try {
+      const data = {
+        "name": userName,
+        "email": email,
+        "password": password,
+        "avatar": "https://picsum.photos/800"
+      }
+      const response: any = await registerUser(data);
+      setLoading(false);
+      if (response && response.data) {
+        toast.show("Registration Successful. Please login to continue.");
+      } else {
+        const message = "Registration failed. Please try again.";
+        toast.show(message);
+      }
+    } catch (error: any) {
+      console.log("error: ", JSON.stringify(error));
+      const message = "Registration failed. Please try again.";
+      toast.show(message);
+      setLoading(false);
+    }
+  }
 
   const handleLogin = () => {
     props.navigation.replace("Login");
@@ -79,10 +103,10 @@ const RegisterScreen: React.FC = (props: any) => {
         <Image
           source={Theme.images.logo}
           style={{
-            width: Theme.heights.semiMedium,
-            height: Theme.heights.medium,
+            width: Theme.responsiveSize.size100,
+            height: Theme.responsiveSize.size75,
             alignSelf: "center",
-            marginBottom: Theme.spacing.medium
+            marginBottom: Theme.responsiveSize.size10
           }}
         />
         <EntryHeader title="Join Us" subtitle="Create Your Account" />
@@ -94,7 +118,7 @@ const RegisterScreen: React.FC = (props: any) => {
             value={userName}
             onChangeText={setUserName}
             error={errors.username}
-            mainViewStyle={{ marginBottom: Theme.spacing.medium }}
+            mainViewStyle={{ marginBottom: Theme.responsiveSize.size10 }}
           />
 
           <InputText
@@ -104,7 +128,7 @@ const RegisterScreen: React.FC = (props: any) => {
             onChangeText={setEmail}
             keyboardType="email-address"
             error={errors.email}
-            mainViewStyle={{ marginBottom: Theme.spacing.medium }}
+            mainViewStyle={{ marginBottom: Theme.responsiveSize.size10 }}
           />
 
           <InputText
@@ -114,7 +138,7 @@ const RegisterScreen: React.FC = (props: any) => {
             onChangeText={setPassword}
             secureTextEntry
             error={errors.password}
-            mainViewStyle={{ marginBottom: Theme.spacing.medium }}
+            mainViewStyle={{ marginBottom: Theme.responsiveSize.size10 }}
           />
 
           <InputText
@@ -128,10 +152,15 @@ const RegisterScreen: React.FC = (props: any) => {
 
           <Button
             title="Signup"
-            onPress={handleSignup}
+            onPress={() => {
+              if (validateForm()) {
+                doRegisterUser();
+              }
+            }}
             loading={loading}
             disabled={loading}
-            viewMainStyle={{ marginTop: Theme.spacing.xlarge * 2.5 }}
+            variant="primary"
+            viewMainStyle={{ marginTop: Theme.responsiveSize.size24 * 2.5 }}
           />
 
           <View style={styles.signUpContainer}>

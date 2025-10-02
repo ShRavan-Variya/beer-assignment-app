@@ -1,15 +1,18 @@
 import Theme from '@/src/theme/Theme';
+import { MaterialIcons } from '@expo/vector-icons';
 import React from 'react';
-import { ActivityIndicator, StyleProp, Text, TouchableOpacity, ViewStyle } from 'react-native';
+import { ActivityIndicator, StyleProp, Text, TextStyle, TouchableOpacity, View, ViewStyle } from 'react-native';
 import styles from './styles';
 
 interface ButtonProps {
   title: string;
   onPress: () => void;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'danger';
   disabled?: boolean;
   loading?: boolean;
   viewMainStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+  icon?: any;
 }
 
 const Button: React.FC<ButtonProps> = (props) => {
@@ -19,6 +22,8 @@ const Button: React.FC<ButtonProps> = (props) => {
         return props.disabled ? styles.primaryDisabled : styles.primary;
       case 'secondary':
         return props.disabled ? styles.secondaryDisabled : styles.secondary;
+      case 'danger':
+        return props.disabled ? styles.dangerDisabled : styles.danger;
       default:
         return styles.primary;
     }
@@ -30,6 +35,8 @@ const Button: React.FC<ButtonProps> = (props) => {
         return styles.primaryText;
       case 'secondary':
         return styles.secondaryText;
+      case 'danger':
+        return styles.dangerText;
       default:
         return styles.primaryText;
     }
@@ -47,7 +54,11 @@ const Button: React.FC<ButtonProps> = (props) => {
           size="small" 
         />
       ) : (
-        <Text style={[styles.buttonText, getTextStyle()]}>{props.title}</Text>
+        // <Text style={[styles.buttonText, getTextStyle()]}>{props.title}</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+          {props.icon && <MaterialIcons name={props.icon} size={Theme.responsiveSize.size20} color={Theme.colors.textColor5} />} 
+          <Text style={[styles.buttonText, getTextStyle(), props.textStyle]}>{props.title}</Text>
+        </View>
       )}
     </TouchableOpacity>
   );

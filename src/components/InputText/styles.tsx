@@ -3,12 +3,12 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   container: {
-    // marginBottom: Theme.spacing.medium,
+    // marginBottom: Theme.responsiveSize.size10,
   },
   title: {
-    fontSize: Theme.fontSizes.medium,
+    fontSize: Theme.responsiveSize.size11,
     color: Theme.colors.textColor1,
-    marginBottom: Theme.spacing.small,
+    marginBottom: Theme.responsiveSize.size2,
     fontWeight: '500',
   },
   inputContainer: {
@@ -16,29 +16,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: Theme.colors.borderColor,
-    borderRadius: Theme.borderRadius.medium,
+    borderRadius: Theme.responsiveSize.size8,
     backgroundColor: Theme.colors.backgroundColor,
-    paddingVertical: Theme.spacing.semiSmall,
+    paddingVertical: Theme.responsiveSize.size5,
   },
   inputError: {
     borderColor: Theme.colors.errorColor,
   },
   textInput: {
     flex: 1,
-    paddingHorizontal: Theme.spacing.medium,
-    fontSize: Theme.fontSizes.medium,
+    paddingHorizontal: Theme.responsiveSize.size10,
+    fontSize: Theme.responsiveSize.size11,
     color: Theme.colors.textColor1,
   },
   eyeButton: {
-    paddingHorizontal: Theme.spacing.medium,
+    paddingHorizontal: Theme.responsiveSize.size10,
   },
   eyeText: {
-    fontSize: Theme.fontSizes.medium,
+    fontSize: Theme.responsiveSize.size11,
   },
   errorText: {
-    fontSize: Theme.fontSizes.small,
+    fontSize: Theme.responsiveSize.size10,
     color: Theme.colors.errorColor,
-    marginTop: Theme.spacing.small,
+    marginTop: Theme.responsiveSize.size2,
   },
 });
 

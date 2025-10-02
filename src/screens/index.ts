@@ -1,4 +1,5 @@
-import { LoginScreen, RegisterScreen } from "./auth";
+import { LoginScreen, RegisterScreen, SplashScreen } from "./auth";
+import { DetailsScreen, HomeScreen, ProfileScreen } from "./mainStack";
 
-export { LoginScreen, RegisterScreen };
+export { DetailsScreen, HomeScreen, LoginScreen, ProfileScreen, RegisterScreen, SplashScreen };
 

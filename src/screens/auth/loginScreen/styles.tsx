@@ -9,34 +9,34 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Theme.colors.backgroundColor,
-    paddingHorizontal: Theme.spacing.xlarge,
-    paddingTop: Theme.spacing.xlarge * 5,
+    paddingHorizontal: Theme.responsiveSize.size24,
+    paddingTop: Theme.responsiveSize.size24 * 5,
   },
   formContainer: {
     flex: 1,
-    marginTop: Theme.spacing.medium,
+    marginTop: Theme.responsiveSize.size10,
   },
   forgotPassword: {
     alignSelf: 'flex-end',
-    marginBottom: Theme.spacing.large,
-    marginTop: Theme.spacing.semiSmall,
+    marginBottom: Theme.responsiveSize.size18,
+    marginTop: Theme.responsiveSize.size5,
   },
   forgotPasswordText: {
-    fontSize: Theme.fontSizes.small,
+    fontSize: Theme.responsiveSize.size10,
     color: Theme.colors.textColor3,
     fontWeight: '500',
   },
   signUpContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: Theme.spacing.medium,
+    marginTop: Theme.responsiveSize.size10,
   },
   signUpText: {
-    fontSize: Theme.fontSizes.medium,
+    fontSize: Theme.responsiveSize.size11,
     color: Theme.colors.textColor4,
   },
   signUpLink: {
-    fontSize: Theme.fontSizes.medium,
+    fontSize: Theme.responsiveSize.size11,
     color: Theme.colors.textColor3,
     fontWeight: '600',
   },
